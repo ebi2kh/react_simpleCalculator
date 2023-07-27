@@ -17,6 +17,16 @@ const themes = {
     buttonBgColor: '#009e74',
     buttonTextColor: '#fff',
   },
+  blue: {
+    backgroundColor: '#3498db',
+    buttonBgColor: '#2980b9',
+    buttonTextColor: '#fff',
+  },
+  red: {
+    backgroundColor: '#e74c3c',
+    buttonBgColor: '#c0392b',
+    buttonTextColor: '#fff',
+  },
 }
 
 function App() {
@@ -63,9 +73,11 @@ function App() {
           value={selectedTheme}
           onChange={(e) => setSelectedTheme(e.target.value)}
         >
-          <option value='default'>Default</option>
-          <option value='purple'>Purple</option>
-          <option value='green'>Green</option>
+          {Object.keys(themes).map((themeKey) => (
+            <option key={themeKey} value={themeKey}>
+              {themeKey.charAt(0).toUpperCase() + themeKey.slice(1)}
+            </option>
+          ))}
         </select>
       </div>
       <input type='text' id='result' value={inputValue} readOnly />
