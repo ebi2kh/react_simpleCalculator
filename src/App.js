@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { evaluate } from 'mathjs' // Import the evaluate function from mathjs
 import './App.css'
 
 const themes = {
@@ -49,7 +50,8 @@ function App() {
 
   const calculateResult = () => {
     try {
-      setInputValue(eval(inputValue).toString())
+      const result = evaluate(inputValue) // Use mathjs evaluate function
+      setInputValue(result.toString())
     } catch (error) {
       setInputValue('Error')
     }
