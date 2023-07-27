@@ -56,18 +56,18 @@ function App() {
       className='calculator'
       style={{ backgroundColor: themeStyles.backgroundColor }}
     >
-      {/* <div className='theme-selector'> */}
-      {/* <label htmlFor='themeSelect'>Choose a Theme:</label>
-      <select
-        id='themeSelect'
-        value={selectedTheme}
-        onChange={(e) => setSelectedTheme(e.target.value)}
-      >
-        <option value='default'>Default</option>
-        <option value='purple'>Purple</option>
-        <option value='green'>Green</option>
-      </select> */}
-      {/* </div> */}
+      <div className='theme-selector'>
+        <label htmlFor='themeSelect'>Choose a Theme:</label>
+        <select
+          id='themeSelect'
+          value={selectedTheme}
+          onChange={(e) => setSelectedTheme(e.target.value)}
+        >
+          <option value='default'>Default</option>
+          <option value='purple'>Purple</option>
+          <option value='green'>Green</option>
+        </select>
+      </div>
       <input type='text' id='result' value={inputValue} readOnly />
       <div className='buttons'>
         <button onClick={() => handleButtonClick('C')} className='clear'>
