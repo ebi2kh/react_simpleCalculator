@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { evaluate } from 'mathjs' // Import the evaluate function from mathjs
 import './App.css'
 
@@ -50,16 +50,53 @@ function App() {
 
   const calculateResult = () => {
     try {
-      const result = evaluate(inputValue) // Use mathjs evaluate function
-      setInputValue(result.toString())
+      const result = evaluate(inputValue)
+      if (typeof result !== 'undefined') {
+        setInputValue(result.toString())
+      } else {
+        setInputValue('Error')
+      }
     } catch (error) {
       setInputValue('Error')
+    }
+  }
+
+  const keyboardButtonHandler = (buttonValue) => {
+    if (buttonValue === '=') {
+      calculateResult()
+    } else {
+      setInputValue((prevValue) => prevValue + buttonValue)
     }
   }
 
   const appendValue = (buttonValue) => {
     setInputValue(inputValue + buttonValue)
   }
+
+  // Add event listener to handle keyboard input
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const key = event.key
+
+      // Check if the key is a number, operator, or equals sign
+      if (/[0-9+\-*/.=]/.test(key)) {
+        event.preventDefault()
+        keyboardButtonHandler(key)
+      } else if (key === 'Enter') {
+        event.preventDefault()
+        calculateResult()
+      } else if (key === 'Escape' || 'Delete') {
+        event.preventDefault()
+        clearResult()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [keyboardButtonHandler, calculateResult, clearResult])
 
   const themeStyles = themes[selectedTheme]
 
